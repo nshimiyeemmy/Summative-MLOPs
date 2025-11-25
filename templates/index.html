@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat & Dog Classification ML Pipeline</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐱 Cat & Dog Classification ML Pipeline 🐶</h1>
+            <p class="subtitle">Machine Learning Operations - End-to-End Pipeline</p>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab-btn active" onclick="showTab('predict')">Prediction</button>
+            <button class="tab-btn" onclick="showTab('visualize')">Visualizations</button>
+            <button class="tab-btn" onclick="showTab('retrain')">Retrain Model</button>
+            <button class="tab-btn" onclick="showTab('status')">Model Status</button>
+        </nav>
+
+        <!-- Prediction Tab -->
+        <div id="predict-tab" class="tab-content active">
+            <div class="card">
+                <h2>Image Prediction</h2>
+                <p>Upload an image to classify it as a cat or dog</p>
+                
+                <div class="upload-area" id="uploadArea">
+                    <input type="file" id="imageInput" accept="image/*" onchange="handleImageSelect(event)">
+                    <div class="upload-placeholder">
+                        <span>📷</span>
+                        <p>Click to upload or drag and drop</p>
+                        <p class="file-info">Supports: JPG, PNG, JPEG</p>
+                    </div>
+                </div>
+
+                <div id="imagePreview" class="image-preview" style="display: none;">
+                    <img id="previewImg" src="" alt="Preview">
+                    <button class="btn btn-primary" onclick="predictImage()">Predict</button>
+                </div>
+
+                <div id="predictionResult" class="prediction-result"></div>
+            </div>
+        </div>
+
+        <!-- Visualizations Tab -->
+        <div id="visualize-tab" class="tab-content">
+            <div class="card">
+                <h2>Data Visualizations</h2>
+                <p>Explore dataset statistics and model performance</p>
+                
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <h3>Dataset Distribution</h3>
+                        <canvas id="datasetChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3>Model Performance Metrics</h3>
+                        <canvas id="metricsChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3>Training vs Test Data</h3>
+                        <canvas id="trainTestChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="insights">
+                    <h3>Feature Interpretations</h3>
+                    <div class="insight-card">
+                        <h4>1. Dataset Balance</h4>
+                        <p>The dataset shows a balanced distribution between cats and dogs, which is crucial for training an unbiased model. This balance helps prevent the model from favoring one class over another.</p>
+                    </div>
+                    <div class="insight-card">
+                        <h4>2. Model Accuracy</h4>
+                        <p>The model's accuracy metric indicates how well it can correctly classify images. High accuracy suggests the model has learned meaningful features from the images, such as facial structures, body shapes, and other distinguishing characteristics.</p>
+                    </div>
+                    <div class="insight-card">
+                        <h4>3. Prediction Confidence</h4>
+                        <p>The confidence scores show how certain the model is about its predictions. Higher confidence indicates the model has identified clear distinguishing features, while lower confidence may suggest ambiguous images or edge cases.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Retrain Tab -->
+        <div id="retrain-tab" class="tab-content">
+            <div class="card">
+                <h2>Model Retraining</h2>
+                <p>Upload new data and retrain the model</p>
+                
+                <div class="retrain-section">
+                    <h3>Step 1: Upload Training Data</h3>
+                    <div class="upload-category">
+                        <label>Category:</label>
+                        <select id="categorySelect">
+                            <option value="cats">Cats</option>
+                            <option value="dogs">Dogs</option>
+                        </select>
+                    </div>
+                    
+                    <div class="upload-area" id="bulkUploadArea">
+                        <input type="file" id="bulkImageInput" accept="image/*" multiple onchange="handleBulkUpload(event)">
+                        <div class="upload-placeholder">
+                            <span>📁</span>
+                            <p>Select multiple images to upload</p>
+                            <p class="file-info">You can select multiple files at once</p>
+                        </div>
+                    </div>
+
+                    <div id="uploadStatus" class="upload-status"></div>
+                </div>
+
+                <div class="retrain-section">
+                    <h3>Step 2: Trigger Retraining</h3>
+                    <button class="btn btn-primary" id="retrainBtn" onclick="triggerRetraining()">
+                        Start Retraining
+                    </button>
+                    
+                    <div id="retrainProgress" class="retrain-progress" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <p id="retrainMessage"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Tab -->
+        <div id="status-tab" class="tab-content">
+            <div class="card">
+                <h2>Model Status & Uptime</h2>
+                
+                <div class="status-grid">
+                    <div class="status-card">
+                        <h3>Model Status</h3>
+                        <p class="status-value" id="modelStatus">Loading...</p>
+                    </div>
+                    
+                    <div class="status-card">
+                        <h3>Uptime</h3>
+                        <p class="status-value" id="uptime">Loading...</p>
+                    </div>
+                    
+                    <div class="status-card">
+                        <h3>Total Predictions</h3>
+                        <p class="status-value" id="totalPredictions">0</p>
+                    </div>
+                    
+                    <div class="status-card">
+                        <h3>Last Training</h3>
+                        <p class="status-value" id="lastTraining">Never</p>
+                    </div>
+                </div>
+
+                <div class="metrics-table">
+                    <h3>Model Metrics</h3>
+                    <table id="metricsTable">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Accuracy</td><td id="metricAccuracy">-</td></tr>
+                            <tr><td>Precision</td><td id="metricPrecision">-</td></tr>
+                            <tr><td>Recall</td><td id="metricRecall">-</td></tr>
+                            <tr><td>F1 Score</td><td id="metricF1">-</td></tr>
+                            <tr><td>Test Loss</td><td id="metricLoss">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
+

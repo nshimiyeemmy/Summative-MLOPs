@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./models:/app/models
+      - ./uploads:/app/uploads
+      - ./retrain_data:/app/retrain_data
+      - ./data:/app/data
+    environment:
+      - FLASK_ENV=production
+    restart: unless-stopped
+
+  # Scale with: docker-compose up --scale web=3
+  # This allows testing with multiple containers
+

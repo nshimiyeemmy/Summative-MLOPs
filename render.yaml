@@ -1,0 +1,17 @@
+# Render Blueprint for Cat & Dog ML Pipeline
+# This file can be used for one-click deployment on Render
+# https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: cat-dog-ml-pipeline
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: FLASK_APP
+        value: app.py
+    plan: starter  # Use 'free' for free tier, 'starter' or higher for better performance
+
