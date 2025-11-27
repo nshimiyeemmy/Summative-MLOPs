@@ -26,13 +26,6 @@ wheels/
 # Jupyter Notebook
 .ipynb_checkpoints
 
-# Model files
-models/*.h5
-models/*.pkl
-models/*.tf
-models/*.json
-!models/.gitkeep
-
 # Uploads
 uploads/*
 !uploads/.gitkeep
