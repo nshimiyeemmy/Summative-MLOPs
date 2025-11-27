@@ -516,6 +516,10 @@ See `requirements.txt` for full list. Key dependencies:
 - Check port 5000 is not in use
 - Review Docker logs: `docker-compose logs`
 
+### Links
+- Deployment:  https://summative-mlops.onrender.com
+- Demo: https://www.bugufi.link/-VN0SE
+
 ## 📄 License
 
 This project is created for educational purposes as part of the African Leadership University Machine Learning Operations course.
