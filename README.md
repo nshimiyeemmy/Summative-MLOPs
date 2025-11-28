@@ -2,7 +2,11 @@
 
 A complete end-to-end Machine Learning Operations (MLOps) pipeline for classifying images of cats and dogs. This project demonstrates the full ML lifecycle from data acquisition to deployment, including model training, evaluation, API creation, web UI, and cloud deployment capabilities.
 
-## 🎯 Project Overview
+### Links
+- Deployment:  https://summative-mlops.onrender.com
+- Demo: https://www.bugufi.link/-VN0SE
+
+## Project Overview
 
 This project implements a production-ready ML pipeline that:
 - Classifies images as either cats or dogs using deep learning
@@ -12,7 +16,7 @@ This project implements a production-ready ML pipeline that:
 - Features load testing capabilities
 - Can be deployed on cloud platforms
 
-## 📋 Features
+## Features
 
 ### Core Functionality
 - ✅ **Image Classification**: Upload images and get predictions (Cat or Dog)
@@ -33,7 +37,7 @@ This project implements a production-ready ML pipeline that:
 - Docker containerization
 - Scalable deployment with docker-compose
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Summative-MLOPs/
@@ -81,7 +85,7 @@ Summative-MLOPs/
 └── requirements.txt         # Python dependencies
 ```
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
 ### Prerequisites
 
@@ -159,7 +163,7 @@ Summative-MLOPs/
 3. **Access the application**
    - Web UI: `http://localhost:5000`
 
-## 📊 Model Training
+## Model Training
 
 ### Using Jupyter Notebook
 
@@ -221,7 +225,7 @@ The model is evaluated using:
 - **GET** `/api/health`
   - Returns: Health status and basic info
 
-## 🧪 Load Testing with Locust
+## Load Testing with Locust
 
 ### Setup
 
@@ -265,7 +269,7 @@ The model is evaluated using:
   - Better load distribution
   - Lower average response time under load
 
-## 🎨 Web UI Features
+## Web UI Features
 
 ### 1. Prediction Tab
 - Upload single image
@@ -290,7 +294,7 @@ The model is evaluated using:
 - Last training timestamp
 - Detailed metrics table
 
-## 📈 Feature Interpretations
+## Feature Interpretations
 
 The visualizations provide insights into:
 
@@ -298,7 +302,7 @@ The visualizations provide insights into:
 2. **Model Accuracy**: Indicates how well the model learned distinguishing features
 3. **Prediction Confidence**: Reveals model certainty levels for different predictions
 
-## 🔄 Model Retraining Process
+## Model Retraining Process
 
 1. **Upload Data**: 
    - Go to "Retrain" tab
@@ -317,7 +321,7 @@ The visualizations provide insights into:
    - Evaluates on validation set
    - Saves updated model
 
-## 🌐 Cloud Deployment
+## Cloud Deployment
 
 ### Deploy to AWS/GCP/Azure
 
@@ -468,7 +472,7 @@ Set these for production:
 - `FLASK_ENV=production`
 - `FLASK_APP=app.py`
 
-## 📝 Requirements
+## Requirements
 
 See `requirements.txt` for full list. Key dependencies:
 - Flask 2.3.3
@@ -478,11 +482,7 @@ See `requirements.txt` for full list. Key dependencies:
 - scikit-learn 1.3.2
 - Locust 2.17.0
 
-## 🎥 Video Demo
-
-[Add YouTube link here after creating the demo video]
-
-## 📊 Results from Load Testing
+##  Results from Load Testing
 
 ### Single Container Results
 - **Users**: 100
@@ -500,7 +500,7 @@ See `requirements.txt` for full list. Key dependencies:
 
 *Note: Results may vary based on hardware and network conditions*
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Model not found error
 - Ensure you've trained the model first using the notebook
@@ -516,20 +516,11 @@ See `requirements.txt` for full list. Key dependencies:
 - Check port 5000 is not in use
 - Review Docker logs: `docker-compose logs`
 
-### Links
-- Deployment:  https://summative-mlops.onrender.com
-- Demo: https://www.bugufi.link/-VN0SE
-
-## 📄 License
+## License
 
 This project is created for educational purposes as part of the African Leadership University Machine Learning Operations course.
 
-## 👤 Author
-
-[Your Name]
-African Leadership University - BSE Program
-
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Dataset: [Kaggle - Cat and Dog Dataset](https://www.kaggle.com/datasets/tongpython/cat-and-dog)
 - TensorFlow/Keras for deep learning framework
